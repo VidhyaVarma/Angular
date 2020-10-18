@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import {ExcelService} from './excel.service';
+import {DetailsService} from './details.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'AngularWithExcel';
+  value;
+  excelData: any ={}
+ 
+constructor(private excelService:ExcelService,private details:DetailsService){
+}
+exportAsXLSX():void {
+   this.details.get_excel().subscribe(res=>{this.excelData=res;
+     this.value=this.excelData["shops"];
+   //this.excelService.exportAsExcelFile( value, file name);
+  this.excelService.exportAsExcelFile( this.value, 'sample');
+})
+}
+}
